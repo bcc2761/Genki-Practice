@@ -1,0 +1,1 @@
+// schema.py - placeholder content

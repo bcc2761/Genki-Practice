@@ -1,0 +1,1 @@
+// VocabQuiz.jsx - placeholder content

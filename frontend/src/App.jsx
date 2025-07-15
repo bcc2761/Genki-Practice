@@ -2,13 +2,13 @@
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 import './App.css'
-import { ClerkProviderWithRoutes } from './auth/ClerkProviderWithRoutes.jsx'
-import { Routes, Route } from 'react-router-dom'
-import { Layout } from './layout/Layout.jsx'
-import { HistoryPanel } from './history/HistoryPanel.jsx'
-import { MCQChallenge } from './challenge/MCQChallenge.jsx'
-import { ChallengeGenerator } from './challenge/ChallengeGenerator.jsx'
-import { AuthenticationPage } from './auth/AuthenticationPage.jsx'
+import ClerkProviderWithRoutes from './auth/ClerkProviderWithRoutes.jsx'
+import {Routes, Route} from 'react-router-dom'
+import {Layout} from './layout/Layout.jsx'
+import {HistoryPanel} from './history/HistoryPanel.jsx';
+// import { MCQChallenge } from './challenge/MCQChallenge.jsx';
+import {ChallengeGenerator} from './challenge/ChallengeGenerator.jsx';
+import {AuthenticationPage} from './auth/AuthenticationPage.jsx';
 
 function App() {
   return <ClerkProviderWithRoutes>
@@ -18,7 +18,7 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<ChallengeGenerator />} />
           <Route path="/history" element={<HistoryPanel />} />
-        <Route>
+        </Route>
       </Routes>
     </ClerkProviderWithRoutes>
 }

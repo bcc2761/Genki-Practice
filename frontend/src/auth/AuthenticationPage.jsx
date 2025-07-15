@@ -1,17 +1,17 @@
 import "react"
-import {SingIn, SignUp, SignedIn, SignedOut} from '@clerk/clerk-react'
+import {SignIn, SignUp, SignedIn, SignedOut} from '@clerk/clerk-react'
 
 export function AuthenticationPage() {
     return <div className="auth-container">
         <SignedOut>
-        // If SignedOut, display this
-            <SignIn routing="path" path="/sign-in" />
-            <SignUp routing="path" path="/sign-up" />
-            <p>Welcome to the Genki Practice App! Please sign in or sign up to continue.</p>
-            <p>If you don't have an account, please sign up first.</p>
+        {/* If SignedOut, display this */}
+            <SignIn routing="path" path="/sign-in"/>
+            <SignUp routing="path" path="/sign-up"/>
         </SignedOut>
         <SignedIn>
-        // If SignedIn, display this
+            <div className="redirect-message">
+                <p>You are already signed in. Redirecting you to the main page...</p>
+            </div>
         </SignedIn>
     </div>
 }

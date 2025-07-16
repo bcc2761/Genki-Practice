@@ -19,5 +19,12 @@ export function Layout() {
 
             </div>
         </header>
+
+        <main className="app-main">
+            <SignedOut>
+                <Navigate to="/sign-in" replace /> // Redirect to sign-in if not signed in
+            </SignedOut>
+            <Outlet />
+        </main>
     </div>
 }

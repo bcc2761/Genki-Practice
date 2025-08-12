@@ -24,7 +24,9 @@ export function Layout() {
             <SignedOut>
                 <Navigate to="/sign-in" replace /> // Redirect to sign-in if not signed in
             </SignedOut>
-            <Outlet />
+            <SignedIn>
+                <Outlet /> // Take what's passed to layout component 
+            </SignedIn>
         </main>
     </div>
 }

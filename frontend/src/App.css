@@ -251,18 +251,18 @@ body {
   color: var(--text-color);
 }
 
-.difficulty-selector {
+.chapter-selector {
   margin: 1rem 0;
 }
 
-.difficulty-selector label {
+.chapter-selector label {
   display: block;
   margin-bottom: 0.5rem;
   color: var(--text-color);
   font-weight: 500;
 }
 
-.difficulty-selector select {
+.chapter-selector select {
   width: 100%;
   padding: 0.75rem;
   border: 1px solid var(--border-color);
@@ -273,7 +273,7 @@ body {
   cursor: pointer;
 }
 
-.difficulty-selector select:disabled {
+.difficulty-chapter select:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }

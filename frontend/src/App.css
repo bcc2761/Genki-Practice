@@ -42,11 +42,12 @@
 } */
 
 :root {
-  --primary-color: #2563eb;
+  --primary-color: #7e1831;
   --error-color: #dc2626;
   --text-color: #1f2937;
-  --bg-color: #f3f4f6;
-  --border-color: #e5e7eb;
+  --bg-color: #e2aa42;
+  --border-color: #e8e8eb;
+  --header-border: #963219;
 }
 
 * {
@@ -70,9 +71,9 @@ body {
 }
 
 .app-header {
-  background-color: white;
+  background-color: rgba(252, 242, 221, 0.733);
   padding: 1rem;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--header-border);
   width: 100%;
 }
 

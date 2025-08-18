@@ -7,7 +7,7 @@ export function Layout() {
         <header className="app-header">
             <div className="header-content">
                 <h1>
-                    Genki Challenge Generator
+                    Genki Practice Tool
                 </h1>
                 <nav>
                     <SignedIn>

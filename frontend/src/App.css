@@ -42,12 +42,12 @@
 } */
 
 :root {
-  --primary-color: #7e1831;
-  --error-color: #dc2626;
-  --text-color: #1f2937;
-  --bg-color: #e2aa42;
-  --border-color: #e8e8eb;
-  --header-border: #963219;
+  --primary-color: #ca7f91;
+  --error-color: #44a181;
+  --text-color: #0a2549;
+  --bg-color: #11352c;
+  --border-color: #0e0c05;
+  --header-border: #070101;
 }
 
 * {
@@ -71,8 +71,8 @@ body {
 }
 
 .app-header {
-  background-color: rgba(252, 242, 221, 0.733);
-  padding: 1rem;
+  background-color: rgba(211, 203, 187, 0.87);
+  padding: 0.75rem;
   border-bottom: 1px solid var(--header-border);
   width: 100%;
 }

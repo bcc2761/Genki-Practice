@@ -16,7 +16,7 @@ export function ChallengeGenerator() {
     const getNextResetTime = () => {}
 
     return <div className="challenge-container">
-        <h2>Genki Practice Generator</h2>
+        <h2>げんき Practice Generator</h2>
 
         <div className="quota-display">
             <p>Challenges remaining today: {quota?.quota_remaining || 0}</p>
@@ -32,6 +32,7 @@ export function ChallengeGenerator() {
                 onChange={(e) => setChapter(e.target.value)}
                 disabled={isLoading}
             >
+                {/* Options for Genki chapters 1 to 20 */}
                 <option value="chapter1">Chapter 1</option>
                 <option value="chapter2">Chapter 2</option>
                 <option value="chapter3">Chapter 3</option>
@@ -42,6 +43,16 @@ export function ChallengeGenerator() {
                 <option value="chapter8">Chapter 8</option>
                 <option value="chapter9">Chapter 9</option>
                 <option value="chapter10">Chapter 10</option>
+                <option value="chapter11">Chapter 11</option>
+                <option value="chapter12">Chapter 12</option>
+                <option value="chapter13">Chapter 13</option>
+                <option value="chapter14">Chapter 14</option>
+                <option value="chapter15">Chapter 15</option>
+                <option value="chapter16">Chapter 16</option>
+                <option value="chapter17">Chapter 17</option>
+                <option value="chapter18">Chapter 18</option>
+                <option value="chapter19">Chapter 19</option>
+                <option value="chapter20">Chapter 20</option>
             </select>
         </div>
 

@@ -6,7 +6,7 @@ export function MCQChallenge({challenge, showExplanation = false}) {
     const [shouldShowExplanation, setShouldShowExplanation] = useState(showExplanation)
 
     const options = typeof challenge.options === "string"
-        ? JSON.parse(challenge.options)
+        ? JSON.parse(challenge.options) // if string, parse it from JSON
         : challenge.options
 
     const handleOptionSelect = (index) => {
@@ -15,13 +15,40 @@ export function MCQChallenge({challenge, showExplanation = false}) {
         setShouldShowExplanation(true)
     }
 
+    // want to style options as red/green, depending on whether the answer is correct
+    // take index of an option, checks if correct, returns
     const getOptionClass = (index) => {
-        if (selectedOption === null) return "option"
+        if (selectedOption === null) return "option" // default
 
         if (index === challenge.correct_answer_id) {
             return "option correct"
-        } 
+        }
+        if (selectedOption === index && index !== challenge.correct_answer_id) {
+            return "option incorrect"
+        }
+
+        return "option"
     }
 
-    return <></>
+    return <div className="challenge-display">
+        <p><strong>Difficulty</strong>: {challenge.difficulty}</p>
+        <p className="challenge-title">{challenge.title}</p>
+        <div className="options">  
+            {options.map((option, index) => (
+                <div 
+                    className={getOptionClass(index)}
+                    key={index}
+                    onClick={() => handleOptionSelect(index)}
+                >
+                    {option}
+                </div>
+            ))}
+        </div>
+        {shouldShowExplanation && selectedOption !== null && (
+            <div className="explanation">
+                <h4>Explanation:</h4>
+                <p>{challenge.explanation}</p>
+            </div>
+        )}
+    </div>
 }

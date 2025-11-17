@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japanese Vocab Flashcards</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap');
+        
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+        }
+
+        /* Styles for the 3D card flip */
+        .perspective {
+            perspective: 1000px;
+        }
+
+        .card {
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden; /* Safari */
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 flex items-center justify-center min-h-screen p-4">
+
+    <div class="w-full max-w-md">
+        <h1 class="text-3xl font-bold text-center mb-6 text-white">Japanese Vocab Flashcards</h1>
+
+        <!-- Flashcard Container -->
+        <div class="perspective w-full h-64 mb-6">
+            <div id="flashcard" class="card relative w-full h-full cursor-pointer rounded-lg shadow-xl">
+                <!-- Front Face -->
+                <div id="card-front" class="card-face absolute w-full h-full bg-white text-gray-900 rounded-lg flex items-center justify-center p-6">
+                    <p class="text-3xl font-medium text-center"></p>
+                </div>
+                <!-- Back Face -->
+                <div id="card-back" class="card-back card-face absolute w-full h-full bg-blue-600 text-white rounded-lg flex items-center justify-center p-6">
+                    <p class="text-3xl font-medium text-center"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex items-center justify-between">
+            <button id="prev-btn" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                Previous
+            </button>
+            <span id="card-counter" class="text-lg font-medium text-gray-400"></span>
+            <button id="next-btn" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-6 rounded-lg transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                Next
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Data from the vocab list
+            const flashcards = [
+                { front: "医院（いいん）", back: "clinic" },
+                { front: "受付（うけつけ）の人", back: "receptionist" },
+                { front: "患者（かんじゃ）", back: "patient" },
+                { front: "診察（しんさつ）", back: "medical examination" },
+                { front: "予約（よやく）", back: "appointment" },
+                { front: "結構（けっこう）です", back: "That would be fine." },
+                { front: "健康保険証（けんこうほけんしょう）", back: "health insurance card" },
+                { front: "初診（しょしん）", back: "first medical examination" },
+                { front: "再診（さいしん）", back: "follow-up medical examination" },
+                { front: "申込書（もうしこみしょ）", back: "registration form" },
+                { front: "できました", back: "I’m done." },
+                { front: "それと", back: "and, also" },
+                { front: "紹介状（しょうかいじょう）", back: "letter of referral" },
+                { front: "問診票（もんしんひょう）", back: "medical questionnaire" },
+                { front: "呼ぶ（よぶ）", back: "to call" },
+                { front: "座る（すわる）", back: "to sit down" },
+                { front: "待つ（まつ）", back: "to wait" },
+                { front: "体温（たいおん）をはかる", back: "take one’s temperature" },
+                { front: "鼻水（はなみず）", back: "runny nose" },
+                { front: "痛み（いたみ）", back: "pain" },
+                { front: "口（くち）", back: "mouth" },
+                { front: "扁桃腺（へんとうせん）", back: "tonsil" },
+                { front: "はれている", back: "be swollen (はれる： swell)" },
+                { front: "風邪薬（かぜぐすり）", back: "cold medicine" },
+                { front: "食前（しょくぜん）", back: "before meals" },
+                { front: "食後（しょくご）", back: "after meals" },
+                { front: "お大事（だいじ）に", back: "Take care." },
+                { front: "クレジットカード", back: "credit card" },
+                { front: "現金（げんきん）", back: "cash" },
+                { front: "診察券（しんさつけん）", back: "patient’s registration card" },
+                { front: "必ず（かならず）～する", back: "be sure to do" },
+                { front: "薬局（やっきょく）", back: "pharmacy, drugstore" },
+                { front: "処方箋（しょほうせん）", back: "prescription" },
+                { front: "薬（くすり）", back: "medicine" },
+                { front: "受け取る（うけとる）", back: "to get, to receive" }
+            ];
+
+            let currentCardIndex = 0;
+            let isFlipped = false;
+
+            const card = document.getElementById('flashcard');
+            const cardFront = document.querySelector('#card-front p');
+            const cardBack = document.querySelector('#card-back p');
+            const counter = document.getElementById('card-counter');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+
+            function updateCard() {
+                const currentCard = flashcards[currentCardIndex];
+                cardFront.textContent = currentCard.front;
+                cardBack.textContent = currentCard.back;
+                
+                counter.textContent = `${currentCardIndex + 1} / ${flashcards.length}`;
+                
+                // Reset flip state
+                if (isFlipped) {
+                    card.classList.remove('flipped');
+                    isFlipped = false;
+                }
+                
+                // Update button states
+                prevBtn.disabled = (currentCardIndex === 0);
+                nextBtn.disabled = (currentCardIndex === flashcards.length - 1);
+            }
+
+            function flipCard() {
+                card.classList.toggle('flipped');
+                isFlipped = !isFlipped;
+            }
+
+            // Event Listeners
+            card.addEventListener('click', flipCard);
+
+            prevBtn.addEventListener('click', () => {
+                if (currentCardIndex > 0) {
+                    currentCardIndex--;
+                    updateCard();
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentCardIndex < flashcards.length - 1) {
+                    currentCardIndex++;
+                    updateCard();
+                }
+            });
+
+            // Initial load
+            updateCard();
+        });
+    </script>
+</body>
+</html>

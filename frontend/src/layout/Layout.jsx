@@ -1,5 +1,5 @@
 import "react"
-import {SignIn, SignedIn, SignedOut, UserButton} from '@clerk/clerk-react'
+import {SignedIn, SignedOut, UserButton} from '@clerk/clerk-react'
 import {Outlet, Link, Navigate} from 'react-router-dom'
 
 export function Layout() {
@@ -7,12 +7,12 @@ export function Layout() {
         <header className="app-header">
             <div className="header-content">
                 <h1>
-                    Genki Practice Tool
+                    <Link to="/"> げんき Practice Tool </Link>
                 </h1>
                 <nav>
                     <SignedIn>
                         <Link to="/">Generate Challenge</Link>
-                        <Link to="/history">History</Link>
+                        <Link to="/history">履歴</Link>
                         <UserButton/>
                     </SignedIn>
                 </nav>
@@ -25,7 +25,7 @@ export function Layout() {
                 <Navigate to="/sign-in" replace /> // Redirect to sign-in if not signed in
             </SignedOut>
             <SignedIn>
-                <Outlet /> // Take what's passed to layout component 
+                <Outlet />  {/* Take what's passed to layout component */}
             </SignedIn>
         </main>
     </div>
